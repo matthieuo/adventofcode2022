@@ -4,13 +4,10 @@ pub fn day2(file_name: &str) -> (i32,i32) {
     let f_str = fs::read_to_string(file_name)
         .expect("Read error");
 
-    let mut runing_score_part1 = 0;
-    let mut runing_score_part2 = 0;
-    for line in f_str.lines() {
-	runing_score_part1 += config_to_score_part1(line);
-	runing_score_part2 += config_to_score_part2(line);
-    }
-    return (runing_score_part1,runing_score_part2);
+    let a1:i32 = f_str.lines().map(|x| config_to_score_part1(x)).sum();
+    let a2:i32 = f_str.lines().map(|x| config_to_score_part2(x)).sum();
+
+    return (a1,a2);
 }
 
 
@@ -80,7 +77,7 @@ fn config_to_score_part2(conf: &str) -> i32 {
 
     let new_c2;
     match c2 {
-	'X' =>  new_c2 = set_loose(c1), //loose
+	'X' =>  new_c2 = set_loose(c1),
 	'Y' => new_c2 = set_eq(c1),
 	'Z' => new_c2 = set_win(c1),
 	_ => panic!("mmh"),
